@@ -8,14 +8,9 @@ class Generator {
             fs.mkdirSync(output, { recursive: true })
         }
         for (const item of data) {
-            fs.writeFile(path.join(output, `${ exportFileName }.d.ts`),
+            fs.writeFileSync(path.join(output, `${ exportFileName }.d.ts`),
                 `${ item.code }\n\n`,
-                { encoding: "utf8", flag: 'a' },
-                (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                })
+                { encoding: "utf8", flag: 'a' })
         }
     }
 }

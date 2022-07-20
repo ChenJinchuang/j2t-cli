@@ -1,6 +1,6 @@
 {
   "name": "j2t-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "generate d.ts file from JSON file.",
   "author": {
     "name": "qinchen",
@@ -29,8 +29,8 @@
   "scripts": {
     "dev": "ts-node --files test/index.ts",
     "test": "jest",
-    "test-bin": "ts-node --files src/bin/j2t.ts",
-    "test-cli": "ts-node --files src/cli.ts",
+    "test:bin": "ts-node --files src/bin/j2t.ts",
+    "test:cli": "ts-node --files src/cli.ts",
     "build": "tsc"
   },
   "dependencies": {

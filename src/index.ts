@@ -2,10 +2,11 @@ import fs from "fs";
 import _ from "lodash";
 import path from "path";
 import Generator from "./Generator";
-import { ASTTree, Parser, ScheduleRootNode } from "./parser";
+import { ASTTree, Parser } from "./parser";
 import Transform from "./transform";
 
 export type Schedule = { [symbol: string]: { [symbol: string]: any } [] }
+type TransformedData = { exportFileName: string, code: { code: string }[] }[]
 
 class JSONToType {
     private data!: Schedule
@@ -17,10 +18,8 @@ class JSONToType {
         this.loadSchedule()
         this.preValidate()
         const parsedData = this.parser()
-        parsedData.forEach((item) => {
-            const transformedData = this.transformer(item.scheduleNodes)
-            this.generator(item.exportFileName, transformedData, this._output)
-        })
+        const transformedData = this.transformer(parsedData)
+        this.generator(transformedData)
     }
 
     /**
@@ -103,15 +102,31 @@ class JSONToType {
     }
 
     protected parser(): ASTTree[] {
-        return Parser.parse(this.data)
+        const astTrees: ASTTree[] = []
+        for (const exportFileName in this.data) {
+            const tree = new Parser(exportFileName, this.data[exportFileName]).parse();
+            astTrees.push(tree);
+        }
+        return astTrees
+
     }
 
-    protected transformer(parsedData: ScheduleRootNode[]): { code: string }[] {
-        return Transform.transform(parsedData)
+    protected transformer(parsedData: ASTTree[]): TransformedData {
+        const transformedData: TransformedData = []
+        parsedData.forEach(tree => {
+            const item = {
+                exportFileName: tree.exportFileName,
+                code: Transform.transform(tree.scheduleNodes)
+            }
+            transformedData.push(item)
+        })
+        return transformedData
     }
 
-    protected generator(exportFileName: string, transformedData: { code: string }[], output: string): void {
-        Generator.generate(exportFileName, transformedData, output)
+    protected generator(transformedData: TransformedData): void {
+        transformedData.forEach(item => {
+            Generator.generate(item.exportFileName, item.code, this._output)
+        })
     }
 }
 
