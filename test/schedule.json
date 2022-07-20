@@ -2,28 +2,36 @@
   "index": [
     {
       "demo1": {
-        "id": 1,
-        "name": "qinchen",
-        "list": [
+        "id": 9,
+        "type": 1,
+        "designated_place": 0,
+        "title": "陪笑服务",
+        "description": "哈哈哈哈哈哈哈哈哈哈哈",
+        "price": "666.00",
+        "begin_date": "2021-01-29",
+        "end_date": "2021-01-29",
+        "score": "0",
+        "sales_volume": 0,
+        "status": 0,
+        "create_time": "2021-03-09 16:07:30",
+        "publisher": [
           {
-            "id": 1,
-            "color": "red"
+            "id": 8,
+            "nickname": "慕慕1617",
+            "avatar": "http://course.chanmeifei.cn/imooc/logo.png",
+            "real_name": null,
+            "gender": 0,
+            "tel": null
           }
-        ]
-      }
-    }
-  ],
-  "demo": [
-    {
-      "demo2": {
-        "id": 1,
-        "name": "qinchen",
-        "list": [
-          {
-            "id": 1,
-            "color": "red"
-          }
-        ]
+        ],
+        "category": {
+          "id": 1,
+          "name": "保洁"
+        },
+        "cover_image": {
+          "id": 1,
+          "path": "http://qinchenju.com/homemaking/storage/20210307/45c172ec5263f9a742908ca4143d667a.jpg"
+        }
       }
     }
   ]
