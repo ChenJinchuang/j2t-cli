@@ -33,6 +33,27 @@
           "path": "http://qinchenju.com/homemaking/storage/20210307/45c172ec5263f9a742908ca4143d667a.jpg"
         }
       }
+    },
+    {
+      "demo2": {
+        "publisher": [
+          {
+            "id": 8,
+            "nickname": "慕慕1617",
+            "avatar": "http://course.chanmeifei.cn/imooc/logo.png",
+            "real_name": null,
+            "gender": 0
+          }
+        ],
+        "category": {
+          "id": 1,
+          "name": "保洁"
+        },
+        "cover_image": {
+          "id": 1,
+          "path": "http://qinchenju.com/homemaking/storage/20210307/45c172ec5263f9a742908ca4143d667a.jpg"
+        }
+      }
     }
   ]
 }

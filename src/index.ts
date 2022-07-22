@@ -79,7 +79,7 @@ class JSONToType {
             const scheduleFilePath = path.join(this.scheduleFilePath, this.scheduleFileName)
             const exists = fs.existsSync(scheduleFilePath);
             if (!exists) {
-                throw Error(`Error: 当前目录:${ this.scheduleFilePath } 下找不到 ${ this.scheduleFileName } 文件\r`)
+                throw Error(`当前目录:${ this.scheduleFilePath } 下找不到 ${ this.scheduleFileName } 文件\r`)
             }
             this.data = require(path.join(this.scheduleFilePath, this.scheduleFileName))
         }
