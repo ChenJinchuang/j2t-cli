@@ -1,6 +1,6 @@
 {
   "name": "j2t-cli",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "generate d.ts file from JSON file.",
   "author": {
     "name": "qinchen",
@@ -46,5 +46,11 @@
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "typescript": "^4.6.4"
-  }
+  },
+  "files": [
+    "lib",
+    "bin",
+    "package.json",
+    "README.md"
+  ]
 }
