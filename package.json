@@ -1,6 +1,6 @@
 {
   "name": "j2t-cli",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "generate d.ts file from JSON file.",
   "author": {
     "name": "qinchen",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/ChenJinchuang/j2t-cli"
   },
   "keywords": [
     "typescript",
