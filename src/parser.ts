@@ -74,7 +74,7 @@ export class Parser {
                 if (rootNode !== false) {
                     this.astTree.scheduleNodes = [rootNode, ...this.astTree.scheduleNodes]
                 }
-                node = Parser.createScheduleNode(key, exportTypeName, [])
+                node = Parser.createScheduleNode(key, rootNode ? rootNode.exportTypeName : exportTypeName, [])
             } else {
                 let nodeType = data[key] === null ? "null" : typeof data[key]
                 node = Parser.createScheduleNode(key, nodeType, [])
