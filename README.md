@@ -21,8 +21,8 @@ npm install -D j2t-cli
     // 需要生成类型声明的 json 数据，在这个数组里面的 json 对象
     // 最终都会导出到同一个文件中
     {
+      // 导出的类型名称，小驼峰命名，这里最终导出的类型名是 Demo1
       "demo1": {
-        // 导出的类型名称，小驼峰命名
         "id": 1,
         "name": "qinchen",
         "list": [
@@ -34,8 +34,10 @@ npm install -D j2t-cli
       }
     }
   ],
+  // 这里的 demo 代表最终导出的文件名，最终的文件名是 demo.d.ts
   "demo": [
     {
+      // 导出的类型名称，小驼峰命名，这里最终导出的类型名是 Demo2
       "demo2": {
         "id": 1,
         "name": "qinchen",

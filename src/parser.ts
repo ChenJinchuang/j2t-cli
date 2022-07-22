@@ -21,6 +21,7 @@ export class Parser {
     private readonly astTree: ASTTree
     private readonly exportFileName: string
     private readonly scheduleData: { [symbol: string]: any }[]
+    private aliasSuffix = 1
 
     constructor(exportFileName: string, scheduleData: { [symbol: string]: any }[]) {
         this.exportFileName = exportFileName
@@ -41,8 +42,10 @@ export class Parser {
                 const nodes = this.extractNode(scheduleElement[exportTypeName])
                 const rootNodeType = _.isArray(scheduleElement[exportTypeName]) ? "array" : "object"
 
-                const node = Parser.createScheduleRootNode(exportTypeName, rootNodeType, nodes)
-                rootNodes.push(node)
+                const node = this.createScheduleRootNode(exportTypeName, rootNodeType, nodes)
+                if (node !== false) {
+                    rootNodes.push(node)
+                }
             }
         }
 
@@ -65,16 +68,17 @@ export class Parser {
             const isArray = _.isArray(data[key]);
 
             if (typeof data[key] === 'object' && data[key]) {
-                const rootNode = Parser.createScheduleRootNode(_.upperFirst(key),
-                    isArray ? 'array' : 'object',
-                    this.extractNode(data[key]))
-                this.astTree.scheduleNodes = [rootNode, ...this.astTree.scheduleNodes]
-                node = Parser.createScheduleNode(key, _.upperFirst(key), [])
+                const exportTypeName = _.upperFirst(key);
+                const rootNodeType = isArray ? 'array' : 'object';
+                const rootNode = this.createScheduleRootNode(exportTypeName, rootNodeType, this.extractNode(data[key]))
+                if (rootNode !== false) {
+                    this.astTree.scheduleNodes = [rootNode, ...this.astTree.scheduleNodes]
+                }
+                node = Parser.createScheduleNode(key, exportTypeName, [])
             } else {
                 let nodeType = data[key] === null ? "null" : typeof data[key]
                 node = Parser.createScheduleNode(key, nodeType, [])
             }
-
             nodes.push(node)
         }
         return nodes;
@@ -87,12 +91,18 @@ export class Parser {
         }
     }
 
-    private static createScheduleRootNode(exportTypeName: string, rootNodeType: string, nodes: ScheduleNode[]): ScheduleRootNode {
-        return {
-            exportTypeName,
-            rootNodeType,
-            nodes
+    private createScheduleRootNode(exportTypeName: string, rootNodeType: string, nodes: ScheduleNode[]): ScheduleRootNode | false {
+        const findIndex = this.findNode(exportTypeName)
+        const rootNode = { exportTypeName, rootNodeType, nodes }
+        if (findIndex === -1) {
+            return rootNode
         }
+
+        if (Parser.equals(this.astTree.scheduleNodes[findIndex], rootNode)) {
+            return false
+        }
+        rootNode.exportTypeName = `${ exportTypeName }${ this.aliasSuffix }`
+        return rootNode
     }
 
     private static createScheduleNode(nodeName: string, nodeType: string, child: ScheduleNode[]): ScheduleNode {
@@ -101,5 +111,13 @@ export class Parser {
             nodeType,
             child,
         }
+    }
+
+    private findNode(exportTypeName: string) {
+        return this.astTree.scheduleNodes.findIndex(item => item.exportTypeName === exportTypeName)
+    }
+
+    private static equals(source: ScheduleRootNode, destination: ScheduleRootNode): boolean {
+        return JSON.stringify(source) === JSON.stringify(destination)
     }
 }

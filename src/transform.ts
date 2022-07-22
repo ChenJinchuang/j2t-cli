@@ -24,11 +24,11 @@ class Transform {
         if (rootNode.rootNodeType === "object") {
             const reg = new RegExp("=", "g")
             code = code.replace(reg, "= {")
-            code += ` }`
+            code += `}`
         }
 
-        const reg = new RegExp(", }", "g")
-        code = code.replace(reg, " }")
+        const reg = new RegExp(",}", "g")
+        code = code.replace(reg, "\r}")
 
         return code
     }
@@ -64,17 +64,17 @@ class Transform {
                     itemObject += Transform.genTypeDeclareBody(item)
                 }
                 if (itemObject) {
-                    itemObject = `${ node.nodeName }: { ${ itemObject } }`
+                    itemObject = `${ node.nodeName }: { ${ itemObject } \r}`
                 } else {
                     itemObject = `${ node.nodeName }: object`
                 }
-                body += ` ${ itemObject },`
+                body += `\r${ itemObject },`
                 break
             case "null":
-                body += ` ${ node.nodeName }?: unknown,`
+                body += `\r\t${ node.nodeName }?: unknown,`
                 break
             default:
-                body += ` ${ node.nodeName }: ${ node.nodeType },`
+                body += `\r\t${ node.nodeName }: ${ node.nodeType },`
         }
         return body
     }
