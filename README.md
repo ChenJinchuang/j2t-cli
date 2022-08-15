@@ -1,3 +1,8 @@
+![](https://img.shields.io/npm/dt/j2t-cli)
+![](https://img.shields.io/badge/node-14.16.0+-3963bc.svg)
+![](https://img.shields.io/npm/v/j2t-cli)
+![](https://img.shields.io/npm/l/j2t-cli)
+
 # j2t-cli
 
 一个根据`.json`文件生成`d.ts`类型文件的工具。
@@ -12,7 +17,7 @@ npm install -D j2t-cli
 
 ### 1. 准备工作
 
-在任意一个你的工程工程根目录下新增一个名叫`schedule.json` 的文件并添加一些内容：
+在任意一个工程根目录下新增一个名叫`schedule.json` 的文件并添加一些内容：
 
 ```json5
 {
